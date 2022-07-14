@@ -4,10 +4,219 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Webpack 5</title>
+        <title>Розширений курс JS</title>
         <!-- <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> тут іконка вкладки -->
     </head>
     <body>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <h1 class="tit_text_learn">Поглибленний курс JS</h1>
+            <!-- Prototype -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <p class="header_name_item_stl">Щот таке Prototype</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">Prototype</p>
+                        <p>Прототип, це той самий об'єкт який присутній у батькіських елементів</p>
+                        <p>Приклад додавання прототипу до глобального класу <code>Object</code>:</p>
+                        <p><code>const person = new Object({ <br> &nbsp name: 'Boris',<br> &nbsp age: 30,<br> &nbsp languages: ['UA','EN','RU'],<br> &nbsp greet(){ <br>&nbsp &nbsp console.log(`Hellow world`);<br>&nbsp }<br>})<br>Object.prototype.sayHi = function () {<br>&nbsp console.log('HI')<br>}<br>person.sayHi();</code></p>
+                        <p>В даному випадку було додано метод до прототипу глобального класу <code>Object</code> з назвою <code>sayHi()</code>, яку маємо змогу використовувати до будь-якого об'єкту</p>
+                    </article>
+                </div>
+            </div>
+            <!-- Контекст this -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        <p class="header_name_item_stl">Контекст this</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">this</p>
+                        <p>Ключове слово <code>this</code> вказує завжди на об'єкт в контексті якого воно було викликано</p>
+                        <p>Приклад використання контексту <code>this</code>:</p>
+                        <p><code>function hello() {<br>&nbsp console.log('hellow world', this) <br>}<br>let person = {<br>&nbsp name: 'Boris',<br>&nbsp age: 30,<br>&nbsp sayHellow: hello<br>}<br> hello() <code class="comment_code">// В даному випадку контекст <code>this</code> буде вказувати на глобальний об'єкт <code>window</code></code><br>person.sayHellow() <code class="comment_code"> // В даному випадку контекст <code>this</code> буде вказувати на об'єкт <code>person</code></code></code></p>
+                        <p class="sec_tit_txt_acord">метод bind</p>
+                        <p>Для передачі контесту до іншого об'єкту використовується метод <code>bind</code>(Повертає нову функцію!!!), приклад:</p>
+                        <p><code>function hello() {<br>&nbsp console.log('hellow world', this) <br>}<br>let person = {<br>&nbsp name: 'Boris',<br>&nbsp age: 30,<br>&nbsp sayHellow: hello,<br>&nbsp;&nbsp;sayHellowWindow: hello.bind(Window) <code class="comment_code"> // В даному випадку в функції <code>sayHellowWindow</code> буди виконуватись контекст this функції <code>hello</code> до об'єкту <code>window</code></code><br>}</code></p>
+                        <p class="sec_tit_txt_acord">Пратичне використання методу bind</p>
+                        <p><code>let person = {<br>&nbsp name: 'Boris',<br>&nbsp age: 30,<br>&nbsp; logInfo: function(){ <br> &nbsp &nbsp console.log(`Name is ${this.name}, age ${this.age}`); <br> &nbsp} &nbsp <br>}<br> let lena = {<br>&nbsp name: 'Lena',<br>&nbsp age: 25,<br>}<br>person.logInfo.bind(lena)()</code></p>
+                        <p>В даному прикладі фукція об'єкту <code>person</code> logInfo буде виконана з контекстом об'єкту <code>lena</code></p>
+                        <p class="sec_tit_txt_acord">метод call</p>
+                        <p>Даний метод схожий на метод <code>bind</code>, але відмінність в тому, що після методу <code>bind</code> необхідно викликати функцію, а метод <code>call</code> викликає функцію автоматично!</p>
+                        <p>Приклад використання методу <code>call</code>:</p>
+                        <p><code>person.logInfo.call(lena)</code></p>
+                        <p>В даному випадку приймається контекст об'єкту <code>lena</code> при цьому автоматично викликає функцію <code>logInfo</code></p>
+                        <p class="sec_tit_txt_acord">метод apply</p>
+                        <p>Приклад використання методу <code>apply</code>:</p>
+                        <p><code>person.logInfo.apply(lena, [тут масив аргументів які попадають в дану функцію])</code> Після чого одразу викликається дана функція.</p>
+                        <p class="sec_tit_txt_acord">Практичне використання прототипів і контексту</p>
+                        <p>Задача: написати функцію, за допомогою якої можна помножити кожне число масиву <code>array = [1,2,3,4,5,6]</code> на те число яке буде передаватись в функцію</p>
+                        <p><code>Array.prototype.multNumber = function (number){<br>&nbsp return this.map(i => i * number )<br>}<br>let array = [1,2,3,4,5,6]<br>console.log(array.multNumber(5));</code></p>
+                        <p>В даному випадку ми створюємо прототип для глобального об'єкту <code>Array</code> де зазначаємо функцію, яка в себе сприймає змінну(число), на яке буде множитись кожен елемент масиву, після чого ця функція за допомогою метожу <code>map</code> сформує новий масив, до якого використовується контекст <code>this</code> який містить callback функцію де кожен елемент множиться на задане число. Таким чином створений метод <code>multNumber</code> прототипу глобального об'єкту <code>Array</code> можна буде застосовувати до люмого з масивів</p>
+                    </article>
+                </div>
+            </div>
+            <!-- Замикання -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        <p class="header_name_item_stl">Замикання</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">Основи</p>
+                        <p>Замикання це функція в середині іншої функції</p>
+                        <p class="sec_tit_txt_acord">Приклади використання замикання</p>
+                        <ul>
+                            <li class="list_style_accord">
+                                <p><code>function calcFunction(n) <code class="comment_code"> // В даному випадку функція нам повертає нову функцію</code> { <br>&nbsp return function () {<br>&nbsp&nbsp console.log(1000*n); <br>&nbsp}<br>}<br>const result = calcFunction(5) <code class="comment_code"> // Так як функція повертає нам нову функцію то необхідно призначити їй змінну</code><br>result() <code class="comment_code"> // Так як цій змінній призначена функція достатньо її викликати</code></code></p>
+                            </li>
+                            <li class="list_style_accord">
+                                <p><code>function calcNumbers(n) {<br>&nbsp return function (num) {<br>&nbsp &nbsp return n * num<br>&nbsp}<br>}<br>let staticNumberOne = calcNumbers(1) <code class="comment_code"> // В даному випадку замикає значення функції, та присвоюємо їй змінну</code><br>console.log(staticNumberOne(10)) <code class="comment_code"> // Викликаємо змінну із значенням яке необхідне для внутрішньої функції</code><br></code></p>
+                            </li>
+                            <li class="list_style_accord">
+                                <p><code>function urlGenerator(domain) {<br>&nbsp return function (link) {<br>&nbsp &nbsp return `https://${link}.${domain}`<br>&nbsp}<br>}<br>let uaUrl = urlGenerator('ua')<br>console.log(uaUrl('sitename'))</code></p>
+                            </li>
+                        </ul>
+                        <p class="sec_tit_txt_acord">Практичне завдання:</p>
+                        <p>Умова: необхідно написати свою bind функцію, для цього є код до якого необхідно дописати функцію:</p>
+                        <p><code>function logPerson (){<br>&nbsp console.log(`Person: ${this.name}, age: ${this.age},job: ${this.job}`)<br>}<br>let person1 = {<br>&nbsp name: 'Boris',<br>&nbsp age: 30,<br>&nbsp job: 'Front-end',<br>}<br>let person2 = {<br>&nbsp name: 'Oleg',<br>&nbsp age: 25,<br>&nbsp job: 'SMM'<br>}<br>bindFn(person1, logPerson)()<br>bindFn(person2, logPerson)()<br></code></p>
+                        <p>Рішення:</p>
+                        <p><code>function bindFn(context, fn){ <code class="comment_code">// В даному випадку <code>context</code> буде приймати об'єкт, <code>fn</code> приймає функцію для виводу інформації</code><br>&nbsp return function (...args){ <code class="comment_code">// Приймає значення всіх параметрів у вигляді масиву</code><br>&nbsp &nbsp fn.apply(context, args)<br>&nbsp}<br>}</code></p>
+                    </article>
+                </div>
+            </div>
+            <!-- Ассинхронність / Event Loop -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingFour">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                        <p class="header_name_item_stl">Асинхронність</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">Основи</p>
+                        <p>Всі асинхронні функції попадають в <code>Web Apis</code> потім в <code>Callback Queue (черга) </code> після чого лише в <code>Call Stack</code>. Таким чином спочатку виконуються СИНХРОННІ, потім  АСИНХРОННІ функції. Навіть якщо в асинхронній функції на прикладі <code>setTimeOut(function(){<br>},0)</code> всеодно буде попадати в <code>Call Stack</code> після виконання СИНХРОННИХ функцій.</p>
+                        <p>Таким чином АСИНХРОННІ функції спочатку попадають в чергу , потім за допомогою<code>Event LOOP</code> черга обробляється і переходить до виконання</p>
+                    </article>
+                </div>
+            </div>
+            <!-- Проміси (Promise) -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingFive">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                        <p class="header_name_item_stl">Проміси (Promise)</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">Основи</p>
+                        <p>Promise - використовуються для асинхронного коду, для уникання вкладенності , та спрощенням роботи з ними</p>
+                        <p>Приклад асинхронного коду, з декількома вложенностями:</p>
+                        <p><code>setTimeout(() => {<br>&nbsp console.log('Preparing data...');<br>&nbsp let backEndData = {<br>&nbsp&nbsp server: 'ABS',<br>&nbsp&nbsp port: 5000,<br>&nbsp&nbsp status:'online'<br>&nbsp }<br>&nbsp setTimeout(()=>{<br>&nbsp&nbsp console.log('Server ready for working, data: ', backEndData);<br>&nbsp&nbsp },2000)<br>},2000)</code></p>
+                        <p>Використання <code>Promise</code>, з декількома вложенностями:</p>
+                        <p><code>const promise = new Promise ((resolve, reject)=>{<code class="comment_code"> // Проміс приймає в себе 2 параметри: resolve - використовується якщо функція успішна, reject - завершена з помилкою </code><br>&nbsp setTimeout(() => {<br>&nbsp &nbsp console.log('Preparing data...');<br>&nbsp &nbsp let backEndData = {<br>&nbsp &nbsp &nbsp server: 'ABS',<br>&nbsp &nbsp &nbsp port: 5000,<br>&nbsp &nbsp &nbsp status:'online'<br>&nbsp &nbsp }<br>&nbsp &nbsp resolve(backEndData) <code class="comment_code"> // Сюди необхідно передавати той результат який буде використовуватись в подальшому, в даному випадку об'єкт backEndData </code><br>&nbsp },2000)<br>}).then((data)=> {<code class="comment_code">// Data виступає в даному випадку як звийчайний параметр, це і буде наш об'єкт який отримали раніше з попереднього промісу "backEndData"</code><br>&nbsp return new Promise ((resolve,reject)=>{ <code class="comment_code"> // Можна вертати значення не нового промісу, а просто редагованого параметру "data"</code><br>&nbsp &nbsp data.modified = true <code class="comment_code">// Додаємо ключ з значенням в наш об'єкт</code><br>&nbsp &nbsp resolve(data)<br>&nbsp })<br>}).then(clientData => {<code class="comment_code"> // Можемо використати знову метод "then" так як попередньо повертаємо новий проміс використовуючи "new Promise"</code><br>&nbsp console.log('Server ready for working, data: ', clientData);<br>})</code></p>
+                        <p class="sec_tit_txt_acord">Методи Promise</p>
+                        <ul>
+                            <li class="list_style_accord"><code>then()</code> коли виконається проміс відповідно до якого використовуємо цей метод то виконувати потрібно наступне. Буде виконаний після того як буде завершена асинхронна операція та буде в ній викликаний метод <code>resolve</code></li>
+                            <li class="list_style_accord"><code>catch()</code> відслідковує помилку в промісі та викликається якщо використовується функція промісу <code>reject</code>. Приклад використання: <code>catch(err => console.error('Error: ',err))</code></li>
+                            <li class="list_style_accord"><code>finally()</code> даний метод буде виклткано в любому випадку , незалежно чи була помилка</li>
+                        </ul>
+                        <p class="sec_tit_txt_acord">Методи глобального класу Promise</p>
+                        <ul>
+                            <li class="list_style_accord"><code>Promise.all([promice2,promise2, і так далі])</code> приймає в себе масив промісів, який вертає також проміс. Даний проміс який повертається в методі <code>all</code> буде виконаний лише тоді коли завершаться всі проміси в масиві. Приклад: <br> <code>Promise.all([promis1,promis2]).then(()=>{<br> &nbsp Тут певний код який буде виконано по завершенню всіх промісів в масиві <br>})</code></li>
+                            <li class="list_style_accord"><code>Promise.race([promice2,promise2, і так далі])</code> приймає в себе масив промісів, який вертає також проміс. Даний проміс який повертається в методі <code>race</code> буде виконаний лише тоді коли завершиться найшвидший проміс в масиві. Приклад: <br> <code>Promise.race([promis1,promis2]).then(()=>{<br> &nbsp Тут певний код який буде виконано по завершенню найшвидчого промісу в масиві <br>})</code></li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+            <!-- Об'єкти з Object.create -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingSix">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                        <p class="header_name_item_stl">Об'єкти ( Object.create )</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">Основи</p>
+                        <p><code>Object.create({proto},{propertiesObject})</code> - створює новий об'єкт з вказаним прототипом і властивостями. Приймає в себе 2 параметри: <br> Об'єкт <code>{proto}</code> - приймає в себе прототипи (створюємо тут прототипи), який створюється та викликається в об'єкту звичайним шляхом, працює контекст this так як знаходиться в об'єкті. <br> Об'єкт <code>{propertiesObject}</code> приймає в себе значення об'єкту</p>
+                        <p>Приклад створення об'єкту:</p>
+                        <p><code>let person = Object.create(<br>&nbsp{<code class="comment_code">// Тут створюємо прототип</code><br> &nbsp &nbsp calculate(number){<br>&nbsp &nbsp &nbsp console.log('HELLO');<br>&nbsp &nbsp}<br>&nbsp},<br>&nbsp{<code class="comment_code"> // Тут поля об'єкту </code><br>&nbsp &nbsp name: {<code class="comment_code">// Дане поле має назву та являється також об'єктом</code><br>&nbsp &nbsp &nbsp value: 'Boris' <code class="comment_code"> // Значення поля name</code><br>&nbsp &nbsp &nbsp}<br>&nbsp}<br>)</code></p>
+                        <p>В даному об'єкті неможливо пройтись циклом, так як у кожного з полів об'єкту є свої <code>PropertyDescription</code> тобто властивості які керують даним полем</p>
+                        <p></p>
+                        <p class="sec_tit_txt_acord">PropertyDescription полів об'єкту</p>
+                        <ul>
+                            <li class="list_style_accord"><code>enumerable</code> використовується для відображення поля об'єкту в циклі. Приймає значення лише <code>true/false</code>,за замовчуванням стоїть значення <code>false</code></li>
+                            <li class="list_style_accord"><code>writable</code> надає змогу зміни поля об'єкту. Приймає значення лише <code>true/false</code>,за замовчуванням стоїть значення <code>false</code></li>
+                            <li class="list_style_accord"><code>configurable</code> надає змогу видалення поля об'єкту. Приймає значення лише <code>true/false</code>,за замовчуванням стоїть значення <code>false</code></li>
+                        </ul>
+                        <p>Приклад задання ДЕСКРИПТОРІВ:</p>
+                        <p><code>let person = Object.create({},<br>&nbsp {<br>&nbsp &nbsp name: {<br>&nbsp &nbsp &nbsp value: 'Boris',<br>&nbsp &nbsp &nbsp enumerable:true,<br>&nbsp &nbsp &nbsp writable: true,<br>&nbsp &nbsp &nbsp configurable: true<br>&nbsp &nbsp}<br>&nbsp}<br>)</code></p>
+                        <p class="sec_tit_txt_acord">Getters/Setters об'єкту</p>
+                        <p><code>get</code> - Функція що повертає значення</p>
+                        <p><code>set</code> - Функція що задає значення</p>
+                        <p>Приклад використання <code>get та set</code> на прикладі об'єкту в якому маючи поля будемо визначати для поля <code>age</code> вік:</p>
+                        <p><code>let person = Object.create({},<br>&nbsp{<br>&nbsp &nbsp birthDay: { <br>&nbsp &nbsp &nbsp value: 1992<br>&nbsp &nbsp },<br>&nbsp &nbsp age: {<br>&nbsp &nbsp &nbsp get(){ <code class="comment_code"> // В двному випадку ми визначаємо значення person.age та повертаємо його.</code><br>&nbsp &nbsp &nbsp &nbsp return new Date().getFullYear() - this.birthDay <br>&nbsp &nbsp &nbsp},<br>&nbsp &nbsp &nbsp set(value){ <code class="comment_code">// Виконуємо заміну background при вказані значення для person.age . Можна писати будь яку дію</code> <br>&nbsp &nbsp &nbsp &nbsp document.body.style.background = value<br>&nbsp &nbsp &nbsp}<br>&nbsp &nbsp} <br>&nbsp}<br>)<br>person.age = 'red' <code class="comment_code">// Вказуємо який колір буде змінено</code> <br>console.log(person.age); <br></code></p>
+                        <p class="sec_tit_txt_acord">Цикл forin</p>
+                        <p>Для використання даного циклу до об'єкту без включення створених прототипів в нього необхідно використати певну перевірку в циклі:</p>
+                        <p><code>for (let key in person){<br>&nbsp if(person.hasOwnProperty(key)){<br>&nbsp &nbsp console.log('KEY OBJECT:', key);<br>&nbsp}<br>}</code></p>
+                        <p>Таким чином буде перевірка <code>person.hasOwnProperty(key)</code>, яка буде виконувати код лише для ключів та в циклі не буде враховуватись <code>Prototype</code>. <br> Дану перевірку необхідно роботи завжди коли використовується цикл <code>forin</code></p>
+                    </article>
+                </div>
+            </div>
+            <!-- Класи -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingSeven">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+                        <p class="header_name_item_stl">Класи ES6</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">Основи</p>
+                        <p>Всі класи називаються з великої літери (за конвенцією)</p>
+                        <p>Приклад створення класу:</p>
+                        <p><code>class Animal {<br>&nbsp constructor(options){<code class="comment_code"> // Створення класу, та через constructor приймаємо об'єкт options, який будемо передавати в даний клас</code><br> &nbsp &nbsp this.name = options.name, <code class="comment_code">// Ініціалізувати поля об'єкту необхідно через контекст this</code><br> &nbsp &nbsp this.age = options.age<br> &nbsp &nbsp this.tail = options.tail<br> &nbsp } <br> &nbsp voice() { <code class="comment_code"> // Присутня змога створювати методи які попадуть в прототип об'єкту</code> <br> &nbsp &nbsp console.log('I am animal')<br> &nbsp }<br>}<br>let dog = new Animal ({ <code class="comment_code"> // створення об'єкту за допомогою класу</code> <br> &nbsp name:'Lucky',<br> &nbsp age: 7,<br> &nbsp tail: true<br>})</code></p>
+                        <p>В даному випадку отримаємо не просто об'єкт а наслідника від класу <code>Animal</code></p>
+                        <p class="sec_tit_txt_acord">Наслідування класів</p>
+                        <p> Приклад наслідування класів:</p>
+                        <p><code>class Animal {<br>&nbsp constructor(options){<br> &nbsp &nbsp this.name = options.name,<br> &nbsp &nbsp this.age = options.age<br> &nbsp &nbsp this.tail = options.tail<br> &nbsp } <br> &nbsp voice() { <br> &nbsp &nbsp console.log('I am animal')<br> &nbsp }<br>}</code></p>
+                        <p>Для наслідування іншим класом поточного необхідно використовувати наступний вид запису:</p>
+                        <p><code>class typeAnimal extends Animal {<code class="comment_code"> // за допомогою слова extends вказуємо який клас ми наслідуємо </code> <br> &nbsp constructor(options){<br> &nbsp &nbsp super(options) <code class="comment_code"> // Підключення конструктора класу якого ми будемо наслідувати</code> <br> &nbsp &nbsp this.typeAnim = options.typeAnim <br> &nbsp } <br> &nbsp; voice() { <code class="comment_code"> // В даному випадку метод voice() поточного класу буде перезаписувати такий самий метод в батьківському класі</code> <br> &nbsp &nbsp console.log('I have type')<br> &nbsp } <br>}</code></p>
+                        <p class="sec_tit_txt_acord">Використання геттерів/сеттерів (get / set) в класах</p>
+                        <p><code>class typeAnimal extends Animal { <br> &nbsp constructor(options){<br> &nbsp &nbsp super(options) <br> &nbsp &nbsp this.typeAnim = options.typeAnim <br> &nbsp } <br> &nbsp; get() { <code class="comment_code"> // Створений геттер буде повертати нове поле в об'єкт з первним значенням співвідношення віку тварини до людини </code> <br> &nbsp &nbsp return this.humAge = this.age * 3<br> &nbsp } <br> &nbsp; set(value) { <code class="comment_code"> // Створений сеттер буде повертати нове значення віку в об'єкт </code> <br> &nbsp &nbsp this.age = value<br> &nbsp } <br>}</code></p>
+                        <p class="sec_tit_txt_acord">Приклад використання класів</p>
+                        <p><code>class Component {<br> &nbsp constructor(selector){ <code class="comment_code"> // Отримуємо селектор, та задаємо методи зміни display для даного селектору</code> <br> &nbsp &nbsp this.$el = document.querySelector(selector)<br> &nbsp }<br> &nbsp hide(){<br> &nbsp &nbsp this.$el.style.display = 'none'<br> &nbsp &nbsp}<br> &nbsp show(){<br> &nbsp &nbsp this.$el.style.display = 'block'<br>&nbsp &nbsp}<br>}<br>class Box extends Component {<br> &nbsp constructor(options){<br> &nbsp &nbsp super(options.selector) <code class="comment_code"> // Наслідуємо від класу Component конструктор з селектором, та додаємо свої опції до новго класу Box</code> <br> &nbsp &nbsp this.$el.style.width = this.$el.style.height = options.size + 'px' <code class="comment_code"> // Так як отримуємо число integer для отримання рядка додаємо 'px'</code> <br> &nbsp &nbsp this.$el.style.background = options.color <br> &nbsp &nbsp this.$el.style.borderRadius = options.radius <br> &nbsp }<br>}<br>let box1 = new Box ({<br> &nbsp selector: '.box1',<br> &nbsp size: 100,<br> &nbsp color:'red'<br>})<br>let box2 = new Box ({<br> &nbsp selector: '.box3',<br> &nbsp size: 50,<br> &nbsp color:'green',<br> &nbsp radius: '50%'<br>})<br>box1.show()<br>box2.show()</code></p>
+                        <p>В результаті чого отримуємо код, завдяки якому викликаючи методи в створених елементів можемо керувати значенням <code>display: block/none</code></p>
+                    </article>
+                </div>
+            </div>
 
+            <!-- <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <p class="header_name_item_stl">Щот таке Prototype</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">Основи</p>
+                        <p>Прототип, це той самий об'єкт який присутній у батькіських елементів</p>
+                        <p>Приклад додавання прототипу до глобального класу <code>Object</code>:</p>
+                        <p><code>const person = new Object({ <br> &nbsp name: 'Boris',<br> &nbsp age: 30,<br> &nbsp languages: ['UA','EN','RU'],<br> &nbsp greet(){ <br>&nbsp &nbsp console.log(`Hellow world`);<br>&nbsp }<br>})<br>Object.prototype.sayHi = function () {<br>&nbsp console.log('HI')<br>}<br>person.sayHi();</code></p>
+                        <p>В даному випадку було додано метод до прототипу глобального класу <code>Object</code> з назвою <code>sayHi()</code>, яку маємо змогу використовувати до будь-якого об'єкту</p>
+                    </article>
+                </div>
+            </div> -->
+
+
+        </div>
     </body>
 </html>
