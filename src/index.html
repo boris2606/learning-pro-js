@@ -198,7 +198,123 @@
                     </article>
                 </div>
             </div>
-
+            <!-- async / await  -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingEight">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+                        <p class="header_name_item_stl">async, await та сервер fetch</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingEight" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">Основи</p>
+                        <p><code>await</code> - працює лише з асинхронними функціями. Допомагає не переходити до наступної стрічки коду , поки не виконається проміс</p>
+                        <p>Приклад використання <code>async, await</code>: </p>
+                        <p><code>let delay = ms => { <code class="comment_code">// Створення функції для затримки</code> <br>&nbsp return new Promise(resolve => setTimeout(()=>resolve(),ms))<br>}<br>const url = 'https://jsonplaceholder.typicode.com/todos' <code class="comment_code">// посилання на fetch сервер</code><br>async function fetchAsyncTodos (){ <code class="comment_code">// async перед функцією перетворює її в асинхронну(для роботи з await)</code> <br> &nbsp console.log('Fetch todo started....'); <br> &nbsp try{ <code class="comment_code">// try / catch використовується для відслідкування коректної роботи коду. В try пишеться код</code><br> &nbsp &nbsp await delay(2000) <code class="comment_code">// await використовується для очікування поки обробиться promis в функції delay, після чого буде виконання подальшого коду</code><br> &nbsp &nbsp const responce = await fetch(url) <code class="comment_code">// метод fetch() повертає promis. Для його отримання призначаємо йому змінну</code><br> &nbsp &nbsp const data = await responce.json() <code class="comment_code">// використовуємо метод json в методі responce()</code><br> &nbsp &nbsp console.log('Data:', data);<br> &nbsp} catch(e) { <code class="comment_code">// Якщо код з методу try повертає помилку, то метод catch її відслідкує</code><br> &nbsp &nbsp console.error(e);<br> &nbsp} finally { <code class="comment_code">// в методі finally код буде виконаний в любому випадку, навіть якщо буде помилка в функції</code><br> &nbsp &nbsp console.log('End of fucntion');<br> &nbsp}<br>}<br>fetchAsyncTodos() <code class="comment_code"> // Дана функція також повертає promice</code></code></p>
+                    </article>
+                </div>
+            </div>
+            <!-- proxy, функції, об'єкти, класи -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingNine">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
+                        <p class="header_name_item_stl">Proxy. Об'єкти, функції, класи</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">Proxy в об'єктах</p>
+                        <p>Proxy - певний клас в JS який допомагає створювати певні пастки для об'єктів,класів чи функцій</p>
+                        <p>Методи Proxy які часто використовуються.</p>
+                        <ul>
+                            <li class="list_style_accord"><code>get()</code> - метод який буде повертати якесь значення</li>
+                            <li class="list_style_accord"><code>set()</code> - метод для задавання значення</li>
+                            <li class="list_style_accord"><code>has()</code> - метод для перевірки наявності в об'єкті поля, повертає значення true/false. Приклад використання в коді <code>'name' in objProxy</code></li>
+                            <li class="list_style_accord"><code>deleteProperty()</code> - видалення певної властивості з об'єкту. Приклад використання в коді <code>delete objProxy.name</code></li>
+                        </ul>
+                        <p>Приклад використання класу Proxy для об'єктів:</p>
+                        <p><code>let person = {<br> &nbsp name: 'Boris',<br> &nbsp age: 30,<br> &nbsp country: 'Ukrain'<br>}<br><br>const objProxy = new Proxy(person, { <code class="comment_code">// Створення proxy для об'єкту person, приймає в себе значення (target,{методи})</code> <br> &nbsp get(target,prop){ <code class="comment_code">// Огляд значення об'єкту</code> <br> &nbsp &nbsp return target[prop]<br> &nbsp},<br> &nbsp set(target,prop,value){ <code class="comment_code">// Задаємо значення полю об'єкта, якщо такого поля немає то буде видавати помилку</code> <br> &nbsp &nbsp if (prop in target){<br> &nbsp &nbsp &nbsp target[prop] = value<br> &nbsp &nbsp} else {<br> &nbsp &nbsp &nbsp throw new Error(`No ${prop} field in target`)<br> &nbsp &nbsp}<br> &nbsp},<br> &nbsp has(target,prop){ <code class="comment_code">// Перевірка навності поля в об'єкті</code> <br> &nbsp &nbsp return ['name','age','country'].includes(prop)<br> &nbsp },<br> &nbsp deleteProperty(target, prop){ <code class="comment_code">// Видалення певного поля в об'єкті</code> <br> &nbsp &nbsp delete target[prop]<br> &nbsp }<br>})<br>objProxy.year = 1992 <code class="comment_code">// Використання методу set(), в даному випадку буде помилка так як поля year в об'єкті немає</code> <br>console.log('name' in objProxy); <code class="comment_code">// Перевірка наявності поля name в об'єкті</code> <br>delete objProxy.name <code class="comment_code">// Видалення поля name в об'єкті</code></code></p>
+                        <p class="sec_tit_txt_acord">Proxy в функціях</p>
+                        <p>Приклад використання класу Proxy для функцій</p>
+                        <p><code>let log = text => `Log: ${text}`<br>let funcProxy = new Proxy (log,{<br> &nbsp apply(target, thisArg, args){<br> &nbsp &nbsp console.log('Calling funcProxy....');<br> &nbsp &nbsp return target.apply(thisArg,args).toUpperCase()<br> &nbsp}<br>})<br>funcProxy()</code></p>
+                        <p class="sec_tit_txt_acord">Proxy в класах</p>
+                        <p>Приклад використання класу Proxy для класів</p>
+                        <p><code>class Person {<br>&nbsp constructor(name, age){<br>&nbsp &nbsp this.name = name<br>&nbsp &nbsp this.age = age<br>&nbsp}<br>}<br>let PersonProxy = new Proxy(Person,{<br>&nbsp construct(target,args){<br>&nbsp &nbsp console.log('Construct.......');<br>&nbsp &nbsp return new target(...args)<br>&nbsp }<br>})<br>const p = new PersonProxy('Boris',30)</code></p>
+                        <p class="sec_tit_txt_acord">Приклади практичного використання PROXY</p>
+                        <p><code>Приклад по використанні на Wrapper(обкладинки)</code></p>
+                        <p><code>const withDefaultValue = (target,defaultValue = 0) => {<br>&nbsp return new Proxy (target,{<br>&nbsp &nbsp get:(obj,prop) => (prop in obj) ? obj[prop] : defaultValue <br>&nbsp})<br>}<br>const position = withDefaultValue(<br>&nbsp{<br>&nbsp &nbsp x: 24,<br>&nbsp &nbsp y: 42<br>&nbsp},0<br>)</code></p>
+                        <p>В даному випадку отримаємо проксі об'єкт з значеннями X та У</p>
+                        <p><code>Приклад по використанні на Hidden properties(Приховані властивості)</code></p>
+                        <p>Задача: Створення обгортки для об'єкту, яка буде приховувати певні властивості які самостійно вказуємо</p>
+                        <p><code>const withHiddenProps = (target, prefix = '_') => {<br>&nbsp return new Proxy(target,{<br>&nbsp &nbsp has:(obj, prop)=> (prop in obj) && (!prop.startsWith(prefix)),<br>&nbsp &nbsp ownKeys:obj => Reflect.ownKeys(obj).filter(p => !p.startsWith(prefix)),<br>&nbsp &nbsp get:(obj,prop,receiver)=> (prop in receiver) ? obj[prop] : void 0<br>&nbsp})<br>}<br>const data = withHiddenProps({<br>&nbsp name: 'Boris',<br>&nbsp age: 30,<br>&nbsp _pass: '13325'<br>})<br>console.log(data.name);<br>console.log(data.age);<br>console.log(data._pass); <code class="comment_code">Таким чином доступу до даного поля не буде ні через ітерацію, ні через звернення напряму до нього. Воно приховане.</code><br></code></p>
+                        <p><code>Приклад по використанні на Optimization(Оптимізація)</code></p>
+                        <p>Задача: пошук елементу по ІD</p>
+                        <p><code>const IndexedArray = new Proxy(Array, {<br>&nbsp construct(target, [args]){<br>&nbsp &nbsp const index = {}<br>&nbsp &nbsp args.forEach(item => (index[item.id] = item))<br>&nbsp &nbsp return new Proxy (new target(...args),{<br>&nbsp &nbsp &nbsp get(arr,prop){<br>&nbsp &nbsp &nbsp &nbsp switch (prop) {<br>&nbsp &nbsp &nbsp &nbsp &nbsp case 'push':<br>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp return item => {<br>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp index[item.id] = item<br>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp arr[prop].call(arr,item)<br>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp}<br>&nbsp &nbsp &nbsp &nbsp &nbsp case 'findById': <br>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp return id => index[id]<br>&nbsp &nbsp &nbsp &nbsp &nbsp default:<br>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp return arr[prop];<br>&nbsp &nbsp &nbsp &nbsp}<br>&nbsp &nbsp &nbsp}<br>&nbsp &nbsp})<br>&nbsp}<br>})<br>const users = new IndexedArray([<br>&nbsp{id:1, name:'Boris', age:30, job:'Front-end'},<br>&nbsp{id:2, name:'Inna', age:24, job:'Nurce'},<br>&nbsp{id:3, name:'Igor', age:27, job:'Fullstack'},<br>&nbsp{id:4, name:'Sergey', age:31, job:'Back-end'}<br>])</code></p>
+                        <p>Тепер присутній метод для використання <code>findById</code> який ми можемо використати для пошуку особи за ID. <code>users.findById(2)</code> після чого буде відображено об'єкт з користувачем який має ID 2</p>
+                    </article>
+                </div>
+            </div>
+            <!-- Генератори. Symbol iterator, for of -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingTen">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTen" aria-expanded="false" aria-controls="flush-collapseTen">
+                        <p class="header_name_item_stl">Генератори. Symbol iterator, for of</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseTen" class="accordion-collapse collapse" aria-labelledby="flush-headingTen" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">Основи</p>
+                        <p>Генератори - це функції які помжуть послідовно видавати результати її роботи</p>
+                        <p>Приклад генератору:</p>
+                        <p><code>function* strGenerator(){ <code class="comment_code">// Символ * робить з функції генератор, обо'язково щоб воно стояло після слова function</code><br>&nbsp yield 'H'<code class="commnet _code">// Ключове слово yield - виконує послідовно дію</code><br>&nbsp yield 'e'<br>&nbsp yield 'l'<br>&nbsp yield 'l'<br>&nbsp yield 'o'<br>}<br>const str = strGenerator() <code class="comment_code">// Дана функція буде повертати об'єкт</code><br>str.next() <code class="comment_code">// Метод .next() викликає наступну дію в функції</code> <br></code></p>
+                        <p class="sec_tit_txt_acord">Цикл for of</p>
+                        <p>Даний цикл працює лише якщо в прототипі присутній <code>Symbol.iterator</code> . Всі генератори мають в собі цей прототип, що дозволяє використовувати для значень функції що повертає функція цикл <code>for of</code>, приклад:</p>
+                        <p><code>function* iter(n=10){<br>&nbsp for(let i=0; i менше n; i++){<br>&nbsp &nbsp yield i<br>&nbsp}<br>}<br>for(let key of iter()){<br>&nbsp console.log(key);<br>}</code></p>
+                    </article>
+                </div>
+            </div>
+            <!-- Методи масисвів -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingEleven">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEleven" aria-expanded="false" aria-controls="flush-collapseEleven">
+                        <p class="header_name_item_stl">Методи масивів</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseEleven" class="accordion-collapse collapse" aria-labelledby="flush-headingEleven" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p>Масив що буде використовуватись в методах: <br><code>let people = [<br>&nbsp{name:'Sergey',age:22 ,budeget:5000},<br>&nbsp{name:'Igor',age:17 ,budeget:3800},<br>&nbsp{name:'Boris',age:30 ,budeget:8000},<br>&nbsp{name:'Oleg',age:16 ,budeget:3000},<br>&nbsp{name:'Alex',age:27 ,budeget:7000}<br>]</code></p>
+                        <p class="sec_tit_txt_acord">Цикл ForEach</p>
+                        <p>Приклад використання циклу:</p>
+                        <p><code>people.forEach(member => {<br>&nbsp console.log(member);<br>});</code></p>
+                        <p class="sec_tit_txt_acord">Метод Map</p>
+                        <p>Дайни метод працює схоже як цикл <code>forEach</code>. Після використання повертає новий масив! Обов'язково необхідно щоб даний метод повертав певне значення</p>
+                        <p>Приклад використання :</p>
+                        <p><code>let newArr = people.map(person => {<br>&nbsp return person<br>})</code></p>
+                        <p class="sec_tit_txt_acord">Метод filter</p>
+                        <p>Використовується для фільтрації масиву по певній умові. Повертає новий масив!</p>
+                        <p>Приклад використання :</p>
+                        <p><code>let adult = people.filter(person => person.age >= 18)</code></p>
+                        <p>В даному випадку буде відфільтровано об'єкти масиву, та створено новий масив з людьми які старше 18 років</p>
+                        <p class="sec_tit_txt_acord">Метод reduce</p>
+                        <p>Даний метод повертає фінальне значення</p>
+                        <p>Приклад використання :</p>
+                        <p><code>let cashPeople = people.reduce((total,person) => total + person.budeget, 0)</code></p>
+                        <p>В даному випадку метод <code>reduce(total,target)</code> приймає в себе 2 значення: total - початкове значення, target - елемент масиву. <code>0</code> в даному записі відповідає за початкове значення</p>
+                        <p class="sec_tit_txt_acord">Метод find</p>
+                        <p>Використовується для пошуку за певною умовою елементу</p>
+                        <p>Приклад використання :</p>
+                        <p><code>let boris = people.find(person => person.name === 'Boris')</code></p>
+                        <p>Буде знайдено людино з масиву, ім'я якої відповідає заданому</p>
+                        <p class="sec_tit_txt_acord">Метод findIndex</p>
+                        <p>Використовується для пошуку за певною умовою індексу елемента масива</p>
+                        <p>Приклад використання :</p>
+                        <p><code>let borisIndex = people.findIndex(person => person.name === 'Boris')</code></p>
+                        <p class="sec_tit_txt_acord">Приклад використання методів разом</p>
+                        <p><code>let newArr = people.filter(person=>person.budeget > 3500).map(person => {<br>&nbsp return {<br>&nbsp &nbsp name: person.name,<br>&nbsp &nbsp age: person.age,<br>&nbsp &nbsp budget: person.budeget<br>&nbsp}<br>})<br>console.log('newArr: ', newArr);</code></p>
+                        <p>В даному випадку відсортували всіх людей в яких бюджет більше 3500, після чого методом <code>map</code> повернули масив об'єктів з певними полями(таким чином можна змінювати елементи об'єктів) </p>
+                    </article>
+                </div>
+            </div>
             <!-- <div class="accordion-item fadeBlock">
                 <h2 class="accordion-header" id="flush-headingOne">
                     <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">

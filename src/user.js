@@ -8,4 +8,3 @@ function showWithDelay(listBlock) {
 }
 showWithDelay(listBlock);
 // Завершення коду появи блоків
-
