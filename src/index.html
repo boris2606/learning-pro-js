@@ -315,6 +315,93 @@
                     </article>
                 </div>
             </div>
+            <!-- Map Set WeakMap WeakSet -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingTwelve">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
+                        <p class="header_name_item_stl">Map , Set , WeakMap , WeakSet</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseTwelve" class="accordion-collapse collapse" aria-labelledby="flush-headingTwelve" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">Методи утворення масива в об'єкт та навпаки</p>
+                        <ul>
+                            <li class="list_style_accord"><code>Object.entries(тут об'єкт)</code> - утворення з об'єкту масив. Для цього має бути масив записаний в наступному викляді(ключ, значення)<br><code>let entries = [<br>&nbsp['name', 'Boris'],<br>&nbsp['age', 26],<br>&nbsp['job','Front-end']<br>]</code></li>
+                            <li class="list_style_accord"><code>Object.fromEntries(тут масив)</code> - утворення з масиву об'єкту</li>
+                        </ul>
+                        <p class="sec_tit_txt_acord">Map</p>
+                        <p><code>Map</code> являється аналогом об'єкту, лише більш продвинутим приклад:</p>
+                        <p><code>let map = new Map ([<br>&nbsp['name', 'Boris'],<br>&nbsp['age', 26],<br>&nbsp['job','Front-end']<br>])</code><br> Таким чином якщо переглянути через console.log(someMap) буде наступне відображення даному map: <code>Map(3) {'name' => 'Boris', 'age' => 26, 'job' => 'Front-end'}</code>. Тобто буде відображено ключ, якому належить певне значення</p>
+                        <p>В ньому можна в якості ключів вказувати будь-який тип даний! </p>
+                        <p><code>МЕТОДИ РОБОТИ З MAP:</code></p>
+                        <ul>
+                            <li class="list_style_accord"><code>get("name")</code> Отримати значення певного ключа</li>
+                            <li class="list_style_accord"><code>set("country", 'Ukrain')</code> Додати значення для об'єкту. Після використання повертає об'єкт вже з цим значенням</li>
+                            <li class="list_style_accord"><code>clear()</code> Повне очищення map</li>
+                            <li class="list_style_accord"><code>has('age')</code> Перевірка чи наявний ключ в map, вкртає значення true/false</li>
+                            <li class="list_style_accord"><code>delete('age')</code> Видалення ключа "а". Повертає boolean значення чи успішно чи ні видалено. Потрібно використовувати так щоб після, якщо виконується chain запис, не було методів більше</li>
+                            <li class="list_style_accord"><code>size</code> Перевірка кількості елементів</li>
+                            <li class="list_style_accord"><code>keys()</code> Прегляд ключів (ітератор)</li>
+                            <li class="list_style_accord"><code>values()</code> Прегляд значень ключів (ітератор)</li>
+                        </ul>
+                        <p><code>Цикли якими можна ітерувати MAP:</code></p>
+                        <ul>
+                            <li class="list_style_accord"><code>forof</code> приклад:<br><code>for (let elem of map) {<br>&nbsp console.log(elem);<br>}</code><br>AБО такий тип, який буде виводити одразу не масиви, а ключ та значення:<br><code>for (let [key,value] of object) {<br>&nbsp console.log(key,value);<br>}</code><br>AБО такий тип, який буде виводити лише значення:<br><code>for (let val of map.values()) {<br>&nbsp console.log(val);<br>}</code><br>AБО такий тип, який буде виводити лише ключ:<br> <code>for (let keys of map.keys()) {<br>&nbsp console.log(keys);<br>}<br></code></li>
+                            <li class="list_style_accord"><code>forEach</code> приклад:<br><code>map.forEach((val,key,m)=>{<br>&nbsp console.log(key,val);<br>})</code> - forEach приймає в себе 3 значення: <code>val</code> - значення ключа,<code>key</code> - назва ключа <code>m</code> - сам map по якому проходимся циклом</li>
+                        </ul>
+                        <p><code>Способи перетворення MAP в масив:</code></p>
+                        <ul>
+                            <li class="list_style_accord">Використовуючи оператор <code>spread</code>:<br><code>let newArr = [...map]</code><br> Таким чином буде сформовано масив зі значеннями цієї карти</li>
+                            <li class="list_style_accord">Використовуючи <code>Array.from(map)</code>:<br><code>let newArr = Array.from(map)</code></li>
+                        </ul>
+                        <p><code>Способи перетворення MAP в звичайний об'єкт:</code></p>
+                        <ul>
+                            <li class="list_style_accord"><code>let mapObj = Object.fromEntries(map.entries())</code></li>
+                        </ul>
+                        <p><code>Приклад використання MAP</code></p>
+                        <p>Задача: необхідно маючи користувачів організувати перегляд коли користувач відвідував сайт, або переглядав статтю.</p>
+                        <p><code>let users = [<br>&nbsp{name:'Boris', country:'Ukrain'},<br>&nbsp{name:'Igor', country:'Poland'},<br>&nbsp{name:'Jon', country:'USA'}<br>]<br><br>let visits = new Map()<br>visits.set(users[0], new Date())<br>&nbsp .set(users[1], new Date(new Date().getTime() + 1000 *60))<br>&nbsp .set(users[2], new Date(new Date().getTime() + 5000 *60))<br><br>function lastVisits(user){<br>&nbsp return visits.get(user)<br>};<br>console.log(lastVisits(users[2]));</code></p>
+                        <p class="sec_tit_txt_acord">set</p>
+                        <p><code>Set</code> являється аналогом масиву, але має свої особливості, він не зберігає в собі дублікати, приклад створення:</p>
+                        <p><code>let set = new Set([1,1,1,1,4,5,6,9])</code>. </p>
+                        <p>Якщо переглянути даний масив через консоль буде відображено <code>Set {1,4,5,6,9}</code>. Тобто даний масив в собі не зберігає дублікати</p>
+                        <p>Методи для роботи з <code>set</code>:</p>
+                        <ul>
+                            <li class="list_style_accord"><code>size</code> - Розмір сету</li>
+                            <li class="list_style_accord"><code>add('3')</code> - Додавання елементу</li>
+                            <li class="list_style_accord"><code>clear()</code> - Очищення сету</li>
+                            <li class="list_style_accord"><code>delete(4)</code> - Видалення певного елементу</li>
+                            <li class="list_style_accord"><code>has(4)</code> - Перегляд чи наявне значення в сеті. Повертає значення true/false</li>
+                            <li class="list_style_accord"><code>keys()</code> - Перегляд елементів (ітератор)</li>
+                            <li class="list_style_accord"><code>values()</code> - Перегляд елементів (ітератор)</li>
+                        </ul>
+                        <p><code>Приклад використання SET:</code></p>
+                        <p>Задача: "Необхідно написати функцію , яка буде повертати унікальне значення з масиву"</p>
+                        <p><code>function uniqValues (array){<br>&nbsp return [...new Set(array)]<br>}<br>console.log(uniqValues([1,1,1,1,1,1,1,6,6,3,8,9,9,9,9,9,]));</code><br><br> Або використати наступний варіант <br><br><code>function uniqValues (array){<br>&nbsp return Array.from(new Set(array))<br>}<br>console.log(uniqValues([1,1,1,1,1,1,1,6,6,3,8,9,9,9,9,9,]));</code></p>
+                        <p>В даному випадку буде сформовано новий масив з значеннями які не дублюються</p>
+                        <p class="sec_tit_txt_acord">WeakMap</p>
+                        <p>По суті, те саме що і <code>map</code>. Різниця в тому, що даний тип допомагає уникати витоку інформації </p>
+                        <p>В <code>WeakMap</code> Ключами можуть бути лише об'єкти!</p>
+                        <p>Присутні наступні методи <code> get,set,delete,has</code></p>
+                        <p class="sec_tit_txt_acord">WeakSet</p>
+                        <p>По суті, те саме що і <code>WeakMap</code>. Значеннями даного сету можуть бути лише об'єкти </p>
+                        <p>Присутні наступні методи <code>has</code></p>
+                    </article>
+                </div>
+            </div>
+            <!-- Запити на сервер Fetch, XMLHttpRequest, Ajax -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingTherteen">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTherteen" aria-expanded="false" aria-controls="flush-collapseTherteen">
+                        <p class="header_name_item_stl">Запити на сервер Fetch, XMLHttpRequest, Ajax</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseTherteen" class="accordion-collapse collapse" aria-labelledby="flush-headingTherteen" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">Основи</p>
+                    </article>
+                </div>
+            </div>
             <!-- <div class="accordion-item fadeBlock">
                 <h2 class="accordion-header" id="flush-headingOne">
                     <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
