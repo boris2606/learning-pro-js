@@ -389,14 +389,54 @@
                     </article>
                 </div>
             </div>
-            <!-- Запити на сервер Fetch, XMLHttpRequest, Ajax -->
+            <!-- Запити на сервер Fetch, XMLHttpRequest(XHR)  -->
             <div class="accordion-item fadeBlock">
                 <h2 class="accordion-header" id="flush-headingTherteen">
                     <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTherteen" aria-expanded="false" aria-controls="flush-collapseTherteen">
-                        <p class="header_name_item_stl">Запити на сервер Fetch, XMLHttpRequest, Ajax</p>
+                        <p class="header_name_item_stl">Запити на сервер XHR, Fetch</p>
                     </button>
                 </h2>
                 <div id="flush-collapseTherteen" class="accordion-collapse collapse" aria-labelledby="flush-headingTherteen" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">XHR</p>
+                        <p>Приклад використання запитів:</p>
+                        <p>Метод GET</p>
+                        <p><code>const requestURL = 'https://jsonplaceholder.typicode.com/users' <code class="comment_code">// URL до якого будемо звертатись</code> <br>let xhr = new XMLHttpRequest() <code class="comment_code">// Формування інстенсу класу з яким в подальшому будемо працювати</code> <br>xhr.responseType = 'json' <code class="comment_code"> // Розпарсуємо xhr по читу JSON, щоб значення поверталось при отримані не в типі string</code> <br>xhr.open('GET', requestURL) <code class="comment_code">// Відкриваємо з'єднання з сервером використовуючи метод GET</code> <br>xhr.onload = () => { <code class="comment_code"> // Перегляд інформації яку отримуємо</code> <br>&nbsp console.log(xhr.response);<br>}<br>xhr.send() <code class="comment_code">// Відправка запиту</code> </code></p>
+                        <p>Так як ми маємо асинхронний код, то буде зручно працювати з Promise. Приклад запису з використанням Promise:</p>
+                        <p><code>function sendRequest (method,url){<br>&nbsp return new Promise ( (resolve,reject) => {<br>&nbsp &nbsp let xhr = new XMLHttpRequest()<br>&nbsp &nbsp xhr.responseType = 'json'<br>&nbsp &nbsp xhr.open(method, url)<br>&nbsp &nbsp xhr.onload = () => {<br>&nbsp &nbsp &nbsp resolve(xhr.response);<br>&nbsp &nbsp}<br>&nbsp &nbsp xhr.onerror = () => {<br>&nbsp &nbsp &nbsp reject(xhr.response);<br>&nbsp &nbsp}<br>&nbsp &nbsp xhr.send()<br>&nbsp})<br>}<br>sendRequest('GET',requestUrl)<br>&nbsp.then(data => console.log(data))</code></p>
+                        <p>В даному випадку було створено функцію sendRequest, яка буде працювати з методом GET, та використовуємо Promise для асинхронного коду </p>
+                        <p>Метод POST</p>
+                        <p>Метод POST на відміну від методу GET повинен приймати в себе додаткові параметри, а саме "Метод, Посилання, body". Де body - додатковий параметр з яким відправляється запит, це являється об'єктом!!!</p>
+                        <p>Приклад використання даного методу POST:</p>
+                        <p><code>function sendRequest (method,url,body = null){<br>&nbsp return new Promise ( (resolve,reject) => {<br>&nbsp &nbsp let xhr = new XMLHttpRequest()<br>&nbsp &nbsp xhr.open(method, url)<br><br>&nbsp &nbsp xhr.responseType = 'json'<br>&nbsp &nbsp xhr.setRequestHeader('Content-type','application/json') <code class="comment_code">// Встановлення хедерів які відправляються з запитом </code><br><br>&nbsp &nbsp xhr.onload = () => {<br>&nbsp &nbsp &nbsp resolve(xhr.response);<br>&nbsp &nbsp }<br>&nbsp &nbsp xhr.onerror = () => {<br>&nbsp &nbsp &nbsp reject(xhr.response);<br>&nbsp &nbsp }<br>&nbsp &nbsp xhr.send(JSON.stringify(body)) <code class="comment_code">// дайний метод приводить body в рядок</code> <br>&nbsp})<br>}<br>let body = {<br>&nbsp name:'Boris',<br>&nbsp age:30<br>}<br>sendRequest('POST',requestUrl,body) <code class="comment_code">// Задаємо третім параметром наш об'єкт який маємо передавати </code> <br>&nbsp .then(data => console.log(data))</code></p>
+                        <p><code>МЕТОДИ РОБОТИ З XHR</code></p>
+                        <p>
+                            <ul>
+                                <li class="list_style_accord"><code>xhr.open(метод, посилання)</code> - Відкриття нового з'єднання, приймає в себе 2 значення: метод - за яким звертаємось, посилання - куди звертаємось</li>
+                                <li class="list_style_accord"><code>xhr.send()</code> - Відправка запиту</li>
+                                <li class="list_style_accord"><code>xhr.onload = () => {} </code>Звернення до отриманої інформації</li>
+                                <li class="list_style_accord"><code>xhr.responseType = 'json' </code>Задання типу відповіді від серверу</li>
+                                <li class="list_style_accord"><code>xhr.onerror = () => {} </code> Відслідкування помилки. Якщо буде помилка в методі onload тоді буде перехів в onerror</li>
+                                <li class="list_style_accord"><code>xhr.setRequestHeader('Content-type','application/json')</code> - Встановлення хедерів які відправляються з запитом </li>
+                                <li class="list_style_accord"><code>JSON.stringify(body)</code> - Приведення до рядкового типу</li>
+                            </ul>
+                        </p>
+                        <p class="sec_tit_txt_acord">FETCH</p>
+                        <p>Приклад використання з методом GET:</p>
+                        <p><code>const requestUrl = 'https://jsonplaceholder.typicode.com/users'<br><br>function sendRequest(method,url,body = null){<br>&nbsp return fetch(url).then(response => { <code class="comment_code">// fetch повертає promise, тому можна використати метод then</code><br>&nbsp &nbsp return response.json() <code class="comment_code">// Метод json повертає дані у вигляді сформованих даних</code><br>&nbsp })<br>}<br>sendRequest('GET',requestUrl,body)<br>&nbsp .then(data => console.log(data))</code></p>
+                        <p>Приклад використання з методом POST:</p>
+                        <p><code>function sendRequest(method,url,body = null){<br>&nbsp const headers = { TYT <br>&nbsp &nbsp 'Content-Type': 'application/json'<br>&nbsp}<br>&nbsp return fetch(url,{<br>&nbsp &nbsp method: method,<br>&nbsp &nbsp body: JSON.stringify(body),<br>&nbsp &nbsp headers:headers<br>&nbsp}).then(response => {<br>&nbsp &nbsp return response.json()<br>&nbsp})<br>}<br>let body = {<br>&nbsp name:'Boris',<br>&nbsp age:30<br>}<br>sendRequest('POST',requestUrl,body)<br>&nbsp .then(data => console.log(data))</code></p>
+                    </article>
+                </div>
+            </div>
+            <!-- Spread Rest -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingForteen">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseForteen" aria-expanded="false" aria-controls="flush-collapseForteen">
+                        <p class="header_name_item_stl">Spread , Rest</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseForteen" class="accordion-collapse collapse" aria-labelledby="flush-headingForteen" data-bs-parent="#accordionFlushExample">
                     <article class="accordion_body">
                         <p class="sec_tit_txt_acord">Основи</p>
                     </article>
