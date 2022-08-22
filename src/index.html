@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Розширений курс JS</title>
+        <title>Поглиблений курс JS</title>
         <!-- <link rel="icon" type="image/x-icon" href="/images/favicon.ico"> тут іконка вкладки -->
     </head>
     <body>
@@ -438,7 +438,34 @@
                 </h2>
                 <div id="flush-collapseForteen" class="accordion-collapse collapse" aria-labelledby="flush-headingForteen" data-bs-parent="#accordionFlushExample">
                     <article class="accordion_body">
-                        <p class="sec_tit_txt_acord">Основи</p>
+                        <p class="sec_tit_txt_acord">Spread з масивами</p>
+                        <p>Оператор Spread - це <code>"..."</code></p>
+                        <p>Масиви які будуть використовуватись для прикладу:<br><code>let citiesUkrain = ['Київ','Харків','Хмельницький','Одеса']<br>let citiesEurope = ['Аліканте','Будапешт','Вроцлав','Мілан']</code></p>
+                        <p>Приклад використання: <br> <code>console.log(...citiesUkrain)</code> - в даному випадку буде масив розгорнутий в набір рядків </p>
+                        <p>Приклад використання Spread для поєднання значень масивів:<br> <code>let allCities = [...citiesUkrain, ...citiesEurope]</code>, в даному випадку ми сформували новий масив, в якому розгорнули 2 масива, після чого отримаємо один масив який буде містити значення двох</p>
+                        <p class="sec_tit_txt_acord">Spread з об'єктами</p>
+                        <p>Оператор Spread - це <code>"..."</code></p>
+                        <p>Об'єкти які будуть використовуватись в прикладах: <br> <code> let citiesUkrainPopulation = {<br>&nbsp Kiev: 2000000,<br>&nbsp Khmelnitskiy: 250000,<br>&nbsp Odesa: 1200000<br>}<br>let citiesEuropePopulation = {<br>&nbsp Milan: 5000000,<br>&nbsp Paris: 3700000,<br>&nbsp Praga: 980000<br>}</code></p>
+                        <p>Приклад використання: <br> <code>console.log({...citiesUkrainPopulation})</code> - в даному випадку буде об'єкт розгорнутий в новоствореному об'єкті </p>
+                        <p>Приклад використання Spread для поєднання об'єктів:<br> <code>let allCities = ({...citiesUkrainPopulation, ...citiesEuropePopulation})</code>, в даному випадку ми сформували новий об'єкт, в якому розгорнули 2 об'єкти, після чого отримаємо один об'єкт який буде містити значення двох</p>
+                        <p><code>Spread</code> для об'єктів виконує "розумне поєднання". Це означає що якщо в двух об'єктах присутні 2 однакові ключі з різними значеннями, то воно залишить значення того ключа, який був в останньому об'єкті</p>
+                        <p class="sec_tit_txt_acord">Практичне використання оператору Spread</p>
+                        <p><code>Приклад №1</code></p>
+                        <p>Необхідно зайти максимальне значення масиву: <code>let array = [5,9,15,60,23,21]</code></p>
+                        <p>Якщо використати наступний запис: <code>console.log(Math.max(array))</code> то ми отримаємо результат <code>NaN</code>, в даному випадку нам допоможе оператор <code>spread</code>. Якщо його використати <code>console.log(Math.max(...array))</code> то в даному випадку нам розгорне масив в набір чисел, та буде показано максимальне число 60 </p>
+                        <p><code>Приклад №2</code></p>
+                        <p>Для прикладу в HTML присутня певна кількість елементів <code>div</code> які ми хочему використовувати як не <code>NodeList</code>, а як звичайни масив:</p>
+                        <p>Потрібно використати наступний запис: <br><code>let divs = document.querySelectorAll('div')<br>let nodes = [...divs]</code><br>Після використання даного запису нам знайшо всі елементи <code>div</code> але не зовсім у вигляді масиву, а у вигляді <code>NodeList</code>, в якого не всі методи масиву присутні. Але якщо в даному випадку ми візьмемо сформуємо нову змінну <code>nodes</code> та до неї передамо в <code>[ ]</code> зміну <code>divs</code> використовуючи оператор <code>spread</code> , то ми розгорнемо значення <code>divs</code> та сформуємо його в масив <code>nodes</code>.</p>
+                        <p class="sec_tit_txt_acord">Rest</p>
+                        <p>Оператор <code>Rest</code> має такий самий синтаксис як і у оператора <code>Spread</code> але він має зовшім іншу область використання</p>
+                        <p>Даний оператор збирає дані , для масивів використовуються <code>[ ]</code> для об'єктів <code>{ }</code></p>
+                        <p class="sec_tit_txt_acord">Практичне використання оператору Rest</p>
+                        <p><code>Приклад №1</code></p>
+                        <p>Необхідно отримати суму всіх чисел масиву <code>let numbers = [1,5,9,5,7,4]</code> використовуючи функцію та оператор <code>rest</code></p>
+                        <p>Приклад рішення:<br> <code>let numbers = [3,8,3,7,58,31,99]<br>function sum(a,b, ...rest){ <code class="comment_code"> // ...rest виступає оператором який збирає елементи масиву які залишились в масиві окрім "а", "б" що передаються до функції в змінну rest</code> <br>&nbsp return a + b + rest.reduce((acc, iter)=> acc + iter , 0) <code class="comment_code"> // метод reduce приймає в себе callback функцію, та початкове значення. Було використано акумулятор та ітератор, де ми знаходимо суму всіх елементів масиву що залишились</code><br>}<br>console.log(sum(...numbers)); <code class="comment_code"> // Тут використовується оператор spread, для того щоб було розбито значення масиву на перелік рядкових елементів</code></code></p>
+                        <p><code>Приклад №2</code></p>
+                        <p>Необхідно об'єкт , використовуючи деструктирезацію розділити на параметри використовуючи оператор <code>Rest</code></p>
+                        <p>Приклад вирішення:<br><code>let person = {<br>&nbsp name: 'Boris',<br>&nbsp age: 30,<br>&nbsp country: 'Ukrain',<br>&nbsp city: 'Lviv'<br>}<br>let {name, age, ...adress} = person <code class="comment_code"> // В даному випадку ключ з значенням об'єкту person виділить в окремі змінні name = person.name, age = person.age всі інші ключі з значеннями за допомогою оператора rest буде поміщено в змінну adress , яка буде являтись так само об'єктом</code><br> console.log(name,age,adress);</code></p>
                     </article>
                 </div>
             </div>

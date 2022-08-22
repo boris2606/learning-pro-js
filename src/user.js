@@ -8,3 +8,15 @@ function showWithDelay(listBlock) {
 }
 showWithDelay(listBlock);
 // Завершення коду появи блоків
+
+
+let person = {
+    name: 'Boris',
+    age: 30,
+    country: 'Ukrain',
+    city: 'Lviv'
+}
+
+let {name, age, ...adress} = person
+
+console.log(name,age,adress);
