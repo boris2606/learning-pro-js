@@ -9,14 +9,16 @@ function showWithDelay(listBlock) {
 showWithDelay(listBlock);
 // Завершення коду появи блоків
 
-
 let person = {
     name: 'Boris',
     age: 30,
     country: 'Ukrain',
-    city: 'Lviv'
+    city: 'Kiev'
 }
+let {name,age,...adress} = person
 
-let {name, age, ...adress} = person
 
-console.log(name,age,adress);
+function logPerson ({name, age}){
+    console.log(name + ' ' + age);
+}
+logPerson(person)

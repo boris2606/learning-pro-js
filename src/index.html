@@ -469,6 +469,30 @@
                     </article>
                 </div>
             </div>
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingFIveteen">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFIveteen" aria-expanded="false" aria-controls="flush-collapseFIveteen">
+                        <p class="header_name_item_stl">Деструктирізація в JS</p>
+                    </button>
+                </h2>
+                <div id="flush-collapseFIveteen" class="accordion-collapse collapse" aria-labelledby="flush-headingFIveteen" data-bs-parent="#accordionFlushExample">
+                    <article class="accordion_body">
+                        <p class="sec_tit_txt_acord">Масиви</p>
+                        <p>Приклад використання без деструктирезації:</p>
+                        <p><code>function calcValues (a,b){ <code class="comment_code">// Створюємо функцію по підрахунку</code><br>&nbsp return [a + b,a - b] <code class="comment_code"> // Повертаємо масив з значеннями операцій що в масиві</code><br>}<br>let result = calcValues(10,5)<br>let sum = result[0] <code class="comment_code">// Отримуємо значення суми по 0 індексу з масиву</code><br>let sub = result[1] <code class="comment_code">// Отримуємо значення різниці по 1 індексу з масиву</code><br>console.log(sum,sub);</code></p>
+                        <p>Приклад використання деструктирізації:</p>
+                        <p><code>function calcValues (a,b){<br>&nbsp return [a + b,a - b]<br>}<br>let [sum,sub] = calcValues(10,5) <code class="comment_code"> // В даному випадку ми призначаємо змінні в масиві,який повертає нам функція, де "sum" - 0 індекс з масиву, "sub" - 1 індекс з масиву</code><br>console.log(sum,sub);</code></p>
+                        <p>Так само можна використовувати оператор <code>rest</code> при використані деструктиризації</p>
+                        <p><code>function calcValues (a,b){<br>&nbsp return [a + b,a - b,a * b, a / b]<br>}<br>let [sum,sub, ...other] = calcValues(10,5) <code class="comment_code"> // В даному випадку ми призначаємо змінні в масиві,який повертає нам функція, де other це буде масив з значеннями "ділення" та "мнощення" </code><br>console.log(sum,sub, other);</code></p>
+                        <p class="sec_tit_txt_acord">Об'єкти</p>
+                        <p>Розбіжність деструктуризації між масивом та об'єктом лише в скобках, масив <code>[ ]</code>, а об'єкт <code>{ }</code>, при роботі з деструктирезацією в об'єктах так само можна використовувати оператор <code>rest</code>, при цьому буде створено об'єкт з ключами які залишились без призначеної змінної</p>
+                        <p><code>let person = {<br>&nbsp name: 'Boris',<br>&nbsp age: 30,<br>&nbsp country: 'Ukrain',<br>&nbsp city: 'Kiev'<br>}<br>let {name,age,...adress} = person</code><code class="comment_code"> // В даному випадку кожна змінна відповідає ключу об'єкту, а за допомогою оператора rest всі інші ключі об'єкту попали в змінну adress</code></p>
+                        <p>Присутня змога змінити зміну тому чи іншому ключу, тобто отримати значення ключа та помістити в іншу змінну, приклад:<br><code>let {name: firstName, age,...adress}</code>, в даному випадку значення ключу <code>name</code> даного об'єкту буде відповідати змінній <code>firstName</code></p>
+                        <p class="sec_tit_txt_acord">Приклад використання на практиці</p>
+                        <p><code>let person = {<br>&nbsp name: 'Boris',<br>&nbsp age: 30,<br>&nbsp country: 'Ukrain',<br>&nbsp city: 'Kiev'<br>}<br>function logPerson ({name, age}){ <code class="comment_code"> // В даному випадку ми створили змінні того об'єкту який буде передаватись в функції , та з легкісттю можемо отримати до них доступ не дублючи записи</code><br>&nbsp console.log(name + ' ' + age);<br>}<br>logPerson(person)</code></p>
+                    </article>
+                </div>
+            </div>
             <!-- <div class="accordion-item fadeBlock">
                 <h2 class="accordion-header" id="flush-headingOne">
                     <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
