@@ -469,6 +469,7 @@
                     </article>
                 </div>
             </div>
+            <!-- Деструктуризація -->
             <div class="accordion-item fadeBlock">
                 <h2 class="accordion-header" id="flush-headingFIveteen">
                     <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFIveteen" aria-expanded="false" aria-controls="flush-collapseFIveteen">
@@ -493,24 +494,35 @@
                     </article>
                 </div>
             </div>
-            <!-- <div class="accordion-item fadeBlock">
-                <h2 class="accordion-header" id="flush-headingOne">
-                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        <p class="header_name_item_stl">Щот таке Prototype</p>
+            <!-- localStorage -->
+            <div class="accordion-item fadeBlock">
+                <h2 class="accordion-header" id="flush-headingSixteen">
+                    <button class="accordion-button collapsed btn_accord_style" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSixteen" aria-expanded="false" aria-controls="flush-collapseSixteen">
+                        <p class="header_name_item_stl">Щот таке localStorage</p>
                     </button>
                 </h2>
-                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div id="flush-collapseSixteen" class="accordion-collapse collapse" aria-labelledby="flush-headingSixteen" data-bs-parent="#accordionFlushExample">
                     <article class="accordion_body">
                         <p class="sec_tit_txt_acord">Основи</p>
-                        <p>Прототип, це той самий об'єкт який присутній у батькіських елементів</p>
-                        <p>Приклад додавання прототипу до глобального класу <code>Object</code>:</p>
-                        <p><code>const person = new Object({ <br> &nbsp name: 'Boris',<br> &nbsp age: 30,<br> &nbsp languages: ['UA','EN','RU'],<br> &nbsp greet(){ <br>&nbsp &nbsp console.log(`Hellow world`);<br>&nbsp }<br>})<br>Object.prototype.sayHi = function () {<br>&nbsp console.log('HI')<br>}<br>person.sayHi();</code></p>
-                        <p>В даному випадку було додано метод до прототипу глобального класу <code>Object</code> з назвою <code>sayHi()</code>, яку маємо змогу використовувати до будь-якого об'єкту</p>
+                        <p><code>localStorage</code> - це локальне сховище, яке дозволяє зберігати в собі дані, які залишаться в браузері навіть після перезавантаження сторінки, та відпвідно до домену</p>
+                        <p><code>localStorage</code> - вміє працювати лише з рядками!!!</p>
+                        <p class="sec_tit_txt_acord">Методи</p>
+                        <ul>
+                            <li class="list_style_accord"><code>localStorage.setItem('ключ', значення)</code> За допомогою даного методу є змога задати певному ключу відповідне значення та зберегти його в локальному середовищі браузера (Значеннями можуть бути масиви/об'єкти і т.д) </li>
+                            <li class="list_style_accord"><code>localStorage.getItem('ключ')</code> Отримання значення того чи іншого ключа з локального сховища браузера</li>
+                            <li class="list_style_accord"><code>localStorage.removeItem('ключ')</code> Видалення первного ключа</li>
+                            <li class="list_style_accord"><code>localStorage.clear()</code> Повне очищення локального сховища</li>
+                        </ul>
+                        <p class="sec_tit_txt_acord">Додаткові методи JSON при роботі з об'єктами/масивами</p>
+                        <ul>
+                            <li class="list_style_accord"><code>localStorage.setItem('ключ', JSON.stringify(об'єкт/масив)</code> - В даному випадку ми отримуємо рядок з даними об'єкту/масиву</li>
+                            <li class="list_style_accord"><code>let obj = JSON.parse('obj')</code> в даному випадку парсим з рядка в об'єкт/масив наш елемент</li>
+                        </ul>
+                        <p class="sec_tit_txt_acord">Прикла роботи з об'єктами</p>
+                        <p><code>let person = {<br>&nbsp name: 'Boris',<br>&nbsp age: 30<br>}<br><br>localStorage.setItem('person', JSON.stringify(person)) <code class="comment_code"> // За допомогою JSON.stringify ми передаємо значення нашого об'єкту у вигляді рядку в localStorage </code> <br>let raw = localStorage.getItem('person') <code class="comment_code"> // За допомогою localStorage.getItem отримуємо значення нашого об'єкту у вигляді рядку та надаємо його змінній</code><br>let parsPerson = JSON.parse(raw) <code class="comment_code"> // Парсим за допомогою JSON.parse наш рядок з змінної 'raw', в який ми помістили значення об'єкту у вигляді рядку з localStorage, що перетвориться нам наш рядок в об'єкт </code><br>parsPerson.name = 'Sergey' <code class="comment_code"> // Тепер можемо звертатись до ключів нашого об'єкту, який ми отримали з localStorage</code></code></p>
                     </article>
                 </div>
-            </div> -->
-
-
+            </div>
         </div>
     </body>
 </html>
